@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Anton", "Arial Narrow", sans-serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-accent: "Playfair Display", Georgia, serif;
+
+  --color-ink: #050505;
+  --color-coal: #0b0b0b;
+  --color-soot: #131313;
+  --color-cream: #ece7da;
+  --color-fog: #8f8c84;
+
+  --color-gold-50: #faf3dd;
+  --color-gold-100: #f3e4b8;
+  --color-gold-200: #ead28a;
+  --color-gold-300: #e0c168;
+  --color-gold-400: #d4af37;
+  --color-gold-500: #b8942a;
+  --color-gold-600: #93741f;
+  --color-gold-700: #6e5717;
+
+  --color-wa: #22c15e;
+
+  --animate-marquee: marquee 34s linear infinite;
+  --animate-kenburns: kenburns 4.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-drift: drift 16s ease-in-out infinite;
+  --animate-drift-rev: drift-rev 24s ease-in-out infinite;
+  --animate-ping-soft: ping-soft 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-sheen: sheen 3.2s linear infinite;
+  --animate-float-y: float-y 5s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+  @keyframes kenburns {
+    from { transform: scale(1.16); }
+    to { transform: scale(1.03); }
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(52px, -40px, 0) scale(1.1); }
+  }
+  @keyframes drift-rev {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1.06); }
+    50% { transform: translate3d(-56px, 44px, 0) scale(1); }
+  }
+  @keyframes ping-soft {
+    0% { transform: scale(1); opacity: 0.65; }
+    80%, 100% { transform: scale(2.1); opacity: 0; }
+  }
+  @keyframes sheen {
+    from { background-position: 220% 0; }
+    to { background-position: -220% 0; }
+  }
+  @keyframes float-y {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  @apply bg-ink text-cream font-body antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #d4af37;
+  color: #050505;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 9px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#93741f, #d4af37);
+  border-radius: 99px;
+  border: 2px solid #050505;
+}
+
+/* Gold gradient text */
+.text-gold-grad {
+  background: linear-gradient(100deg, #f7e3a3 0%, #dfbd55 34%, #d4af37 52%, #8f6b1c 96%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Animated sheen sweep for premium buttons */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.5) 48%,
+    transparent 62%
+  );
+  background-size: 220% 100%;
+  animation: sheen 3.2s linear infinite;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Film grain overlay */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  mix-blend-mode: overlay;
+}
+
+/* Dark-mode Google map */
+.map-dark {
+  filter: grayscale(1) invert(0.92) contrast(0.86) brightness(0.9) sepia(0.25);
+}
+
+/* Glass card */
+.glass {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Outlined display text */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(212, 175, 55, 0.35);
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
